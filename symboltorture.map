@@ -1,0 +1,10 @@
+V1 {
+global:
+symshortver*;
+local: *;
+};
+
+VERY_LONG_VERSION_1 {
+global:
+symlongver*;
+} V1;
