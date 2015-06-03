@@ -1,11 +1,4 @@
-SHELL=bash
-
-symboltorture.o: symboltorture.c
-	gcc -fPIC -c -o symboltorture.o symboltorture.c
-
-libsymboltorture.so: symboltorture.o symboltorture.map
-	gcc -shared -Wl,--version-script=symboltorture.map -o libsymboltorture.so symboltorture.o
-
+default: output.txt
 
 symboltorturever.c: gentorture.py
 	python gentorture.py > symboltorturever.c
@@ -24,9 +17,10 @@ symboltorturever-space.o: symboltorturever.o redefine-syms.sh
 libsymboltorturever.so: symboltorturever-space.o symboltorturever.map
 	gcc -shared -Wl,--version-script=symboltorturever.map -o libsymboltorturever.so symboltorturever-space.o
 
-output: libsymboltorturever.so
-	#objdump -w -f -p -T -R libsymboltorturever.so
-	objdump -T libsymboltorturever.so
+output.txt: libsymboltorturever.so
+	objdump -w -f -p -T -R libsymboltorturever.so > output.txt
 
+output: output.txt
+	cat output.txt
 
 .PHONY: output

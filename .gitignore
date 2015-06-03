@@ -1,3 +1,5 @@
 *.so
 *.o
 symboltorturever.c
+output.txt
+redefine-syms.sh
